@@ -1,10 +1,12 @@
 import { Builder } from "./script/utils/builder.js";
 import { Island } from "./script/island/Island.js";
+import { SkyBox } from "./script/skybox/SkyBox.js";
 
 class IsVDland {
   constructor() {
     this.builder = new Builder();
     this.island = new Island();
+    this.skybox = new SkyBox();
 
     this.objects = [];
     this.scene = this.builder.createScene();
@@ -18,7 +20,7 @@ class IsVDland {
       this.Camera1,
       this.renderer.domElement
     );
-    // this.controls.autoRotate = true;
+    this.controls.autoRotate = true;
   }
 
   setupCamera = () => {
@@ -30,6 +32,7 @@ class IsVDland {
     document.body.appendChild(this.renderer.domElement);
     this.island.makeIsland();
     this.objects = this.island.getObjects();
+    // this.builder.addScene(this.scene, this.skybox.getSkyBox());
     this.objects.forEach((object) => {
       this.scene.add(object);
     });

@@ -29,6 +29,10 @@ class Builder {
     return new THREE.Scene();
   };
 
+  addScene = (scene, items) => {
+    scene.add(new THREE.Mesh(items));
+  };
+
   createRenderer = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);

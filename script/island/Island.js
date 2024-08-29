@@ -38,8 +38,8 @@ class Island {
   }
 
   createBaseCone = () => {
-    const cone = this.geometry.createCone(4, 4, 100, this.standartMaterial);
-    this.geometry.setPosition(cone, 0, -2, 0);
+    const cone = this.geometry.createCone(4, 5, 100, this.standartMaterial);
+    this.geometry.setPosition(cone, 0, -1, 0);
     this.geometry.setRotation(cone, Math.PI);
     this.objects.push(cone);
   };

@@ -18,11 +18,14 @@ class Lighting {
   createPointLight = (color, intensity, distance) => {
     return new THREE.PointLight(color, intensity, distance);
   };
-
 }
 
 class Material {
   constructor() {}
+
+  createMeshBasicMaterial = (settings) => {
+    return new THREE.MeshBasicMaterial(settings);
+  };
 
   createStandartMaterial = (settings) => {
     return new THREE.MeshStandardMaterial(settings);
