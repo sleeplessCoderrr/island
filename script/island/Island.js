@@ -1,3 +1,4 @@
+import * as THREE from "../../threejs/build/three.module.js ";
 import { Lighting, Material, Geometry } from "../utils/component.js";
 import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
 import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
@@ -12,22 +13,42 @@ class Island {
     this.textureLoader = new THREE.TextureLoader();
     this.gltfLoader = new GLTFLoader();
     this.fontLoader = new FontLoader();
-  }
-
-  makeIsland() {
-    this.createBox();
-  }
-
-  createBox() {
-    const material1 = this.materialLoader.createPhongMaterial(
-      0x00000,
+    this.phongMaterial = this.materialLoader.createPhongMaterial(
+      new THREE.Color(0x7cfcda),
       false,
       100
     );
-    const box = this.geometry.createBox(1, 1, 1, material1);
-    this.geometry.setPosition(box, 0, 0, 0);
+    this.standartMaterial = this.materialLoader.createStandartMaterial({
+      color: new THREE.Color(0x35edf0),
+      wireframe: false,
+      side: THREE.DoubleSide,
+    });
+  }
+
+  makeIsland() {
+    this.createBaseBox();
+    this.createBaseCone();
+    this.createLight();
+  }
+
+  createBaseBox() {
+    const box = this.geometry.createBox(100, 0.2, 100, this.phongMaterial);
+    this.geometry.setPosition(box, 0, -4, 0);
     this.objects.push(box);
   }
+
+  createBaseCone = () => {
+    const cone = this.geometry.createCone(4, 4, 100, this.standartMaterial);
+    this.geometry.setPosition(cone, 0, -2, 0);
+    this.geometry.setRotation(cone, Math.PI);
+    this.objects.push(cone);
+  };
+
+  createLight = () => {
+    const pointLight = this.lighting.createPointLight(0xffffff, 0.8, 1000);
+    this.geometry.setPosition(pointLight, 0, 3, 0);
+    this.objects.push(pointLight);
+  };
 
   getObjects() {
     return this.objects;

@@ -18,41 +18,22 @@ class Lighting {
   createPointLight = (color, intensity, distance) => {
     return new THREE.PointLight(color, intensity, distance);
   };
+
 }
 
 class Material {
   constructor() {}
 
-  createStandartMaterial = (
-    color,
-    roughness,
-    metalness,
-    isWireframe,
-    isFog
-  ) => {
-    return new THREE.MeshStandardMaterial({
-      color: color,
-      roughness: roughness,
-      metalness: metalness,
-      wireframe: isWireframe,
-      fog: isFog,
-    });
+  createStandartMaterial = (settings) => {
+    return new THREE.MeshStandardMaterial(settings);
   };
 
-  createLambertMaterial = (color, isWireframe, isFog) => {
-    return new THREE.MeshLambertMaterial({
-      color: color,
-      wireframe: isWireframe,
-      fog: isFog,
-    });
+  createLambertMaterial = (settings) => {
+    return new THREE.MeshLambertMaterial(settings);
   };
 
-  createPhongMaterial = (color, isWireframe, shininess) => {
-    return new THREE.MeshPhongMaterial({
-      color: color,
-      wireframe: isWireframe,
-      shininess: shininess,
-    });
+  createPhongMaterial = (settings) => {
+    return new THREE.MeshPhongMaterial(settings);
   };
 }
 
@@ -83,8 +64,12 @@ class Geometry {
     return new THREE.Mesh(geometry, material);
   };
 
-  setPosition = (geometry, x, y, z) => {
-    geometry.position.set(x, y, z);
+  setPosition = (instance, x, y, z) => {
+    instance.position.set(x, y, z);
+  };
+
+  setRotation = (instance, rotation) => {
+    instance.rotation.x = rotation;
   };
 }
 

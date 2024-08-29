@@ -18,7 +18,7 @@ class IsVDland {
       this.Camera1,
       this.renderer.domElement
     );
-    this.controls.autoRotate = true;
+    // this.controls.autoRotate = true;
   }
 
   setupCamera = () => {
