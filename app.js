@@ -2,33 +2,36 @@ import { Builder } from "./script/utils/builder.js";
 import { Island } from "./script/island/Island.js";
 import { SkyBox } from "./script/skybox/SkyBox.js";
 import { Geometry } from "./script/utils/component.js";
+import { GLTFLoader } from "./threejs/examples/jsm/loaders/GLTFLoader.js";
 
 class IsVDland {
   constructor() {
+    //Object
     this.builder = new Builder();
     this.island = new Island();
     this.skybox = new SkyBox(100, 100, 100);
+    this.geometry = new Geometry();
 
+    //All object in Canvas
     this.objects = [];
     this.scene = this.builder.createScene();
 
+    //Camera things
     this.cameras = [];
-    this.Camera1 = this.builder.createCamera(75, 1000);
-    this.renderer = this.builder.createRenderer();
-    this.cameras.push(this.Camera1);
+    this.cameraOrbit = this.builder.createCamera(75, 1000);
+    this.cameras.push(this.cameraOrbit);
 
+    this.renderer = this.builder.createRenderer();
     this.controls = this.builder.createOrbitControls(
-      this.Camera1,
+      this.cameraOrbit,
       this.renderer.domElement
     );
     this.controls.autoRotate = true;
-
-    this.geometry = new Geometry();
   }
 
   setupCamera = () => {
-    this.builder.setCameraPosition(this.Camera1, 0, 5, 5);
-    this.builder.setCameraLook(this.Camera1, 0, 0, 0);
+    this.builder.setCameraPosition(this.cameraOrbit, 0, 5, 5);
+    this.builder.setCameraLook(this.cameraOrbit, 0, 0, 0);
   };
 
   fill = () => {
@@ -40,8 +43,18 @@ class IsVDland {
     const skybox = this.skybox.getSkyBox();
     this.builder.addScene(this.scene, skyboxGeometry, skybox);
 
+    this.load("./public/assets/Model/scene.gltf", 40, 40, 40);
     this.objects.forEach((object) => {
       this.scene.add(object);
+    });
+  };
+
+  load = (path, height, width, depth) => {
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load(path, (gltf) => {
+      const model = gltf.scene;
+      model.scale.set(height, width, depth);
+      this.scene.add(model);
     });
   };
 
@@ -49,7 +62,7 @@ class IsVDland {
     requestAnimationFrame(this.render);
     this.controls.update();
     this.renderer.setClearColor(0xffffff);
-    this.renderer.render(this.scene, this.Camera1);
+    this.renderer.render(this.scene, this.cameraOrbit);
   };
 
   updateAllCamera = () => {
