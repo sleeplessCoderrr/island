@@ -29,8 +29,8 @@ class Builder {
     return new THREE.Scene();
   };
 
-  addScene = (scene, items) => {
-    scene.add(new THREE.Mesh(items));
+  addScene = (scene, box, items) => {
+    scene.add(new THREE.Mesh(box, items));
   };
 
   createRenderer = () => {

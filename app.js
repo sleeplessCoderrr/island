@@ -1,12 +1,13 @@
 import { Builder } from "./script/utils/builder.js";
 import { Island } from "./script/island/Island.js";
 import { SkyBox } from "./script/skybox/SkyBox.js";
+import { Geometry } from "./script/utils/component.js";
 
 class IsVDland {
   constructor() {
     this.builder = new Builder();
     this.island = new Island();
-    this.skybox = new SkyBox();
+    this.skybox = new SkyBox(100, 100, 100);
 
     this.objects = [];
     this.scene = this.builder.createScene();
@@ -21,6 +22,8 @@ class IsVDland {
       this.renderer.domElement
     );
     this.controls.autoRotate = true;
+
+    this.geometry = new Geometry();
   }
 
   setupCamera = () => {
@@ -32,7 +35,11 @@ class IsVDland {
     document.body.appendChild(this.renderer.domElement);
     this.island.makeIsland();
     this.objects = this.island.getObjects();
-    // this.builder.addScene(this.scene, this.skybox.getSkyBox());
+
+    const skyboxGeometry = this.skybox.getBoxGeometry();
+    const skybox = this.skybox.getSkyBox();
+    this.builder.addScene(this.scene, skyboxGeometry, skybox);
+
     this.objects.forEach((object) => {
       this.scene.add(object);
     });

@@ -13,13 +13,13 @@ class Island {
     this.textureLoader = new THREE.TextureLoader();
     this.gltfLoader = new GLTFLoader();
     this.fontLoader = new FontLoader();
-    this.phongMaterial = this.materialLoader.createPhongMaterial(
+    this.baseBoxMaterial = this.materialLoader.createPhongMaterial(
       new THREE.Color(0x7cfcda),
       false,
       100
     );
-    this.standartMaterial = this.materialLoader.createStandartMaterial({
-      color: new THREE.Color(0x35edf0),
+    this.coneMaterial = this.materialLoader.createStandartMaterial({
+      color: new THREE.Color(0x95fce1),
       wireframe: false,
       side: THREE.DoubleSide,
     });
@@ -31,23 +31,34 @@ class Island {
     this.createLight();
   }
 
+  createLight() {
+    this.createPointLight();
+    this.createAmbientLight();
+  }
+
   createBaseBox() {
-    const box = this.geometry.createBox(100, 0.2, 100, this.phongMaterial);
+    const box = this.geometry.createBox(40, 0.2, 40, this.baseBoxMaterial);
     this.geometry.setPosition(box, 0, -4, 0);
     this.objects.push(box);
   }
 
   createBaseCone = () => {
-    const cone = this.geometry.createCone(4, 5, 100, this.standartMaterial);
+    const cone = this.geometry.createCone(4, 5, 100, this.coneMaterial);
     this.geometry.setPosition(cone, 0, -1, 0);
     this.geometry.setRotation(cone, Math.PI);
     this.objects.push(cone);
   };
 
-  createLight = () => {
+  createPointLight = () => {
     const pointLight = this.lighting.createPointLight(0xffffff, 0.8, 1000);
     this.geometry.setPosition(pointLight, 0, 3, 0);
     this.objects.push(pointLight);
+  };
+
+  createAmbientLight = () => {
+    const ambientLight = this.lighting.createAmbientLight(0xffffff, 0.1);
+    this.geometry.setPosition(ambientLight, 0, 0, 0);
+    this.objects.push(ambientLight);
   };
 
   getObjects() {

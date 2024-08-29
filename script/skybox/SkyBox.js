@@ -1,21 +1,20 @@
 import * as THREE from "../../threejs/build/three.module.js ";
-import { Lighting, Material, Geometry } from "../utils/component.js";
-import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
-import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
+import { Material } from "../utils/component.js";
 
 class SkyBox {
-  constructor() {
+  constructor(height, width, depth) {
+    this.boxGeometry = new THREE.BoxGeometry(height, width, depth);
+
     this.material = new Material();
     this.textureLoader = new THREE.TextureLoader();
-    this.skyBox = [];
+    this.skyBoxMaterials = [];
     this.skyList = [
-      "./public/assets/Daylight Box_Pieces/Daylight Box_Right.bmp",
-      "./public/assets/Daylight Box_Pieces/Daylight Box_Left.bmp",
-      "./public/assets/Daylight Box_Pieces/Daylight Box_Top.bmp",
-      "./public/assets/Daylight Box_Pieces/Daylight Box_Bottom.bmp",
-      "./public/assets/Daylight Box_Pieces/Daylight Box_Front.bmp",
-      "./public/assets/Daylight Box_Pieces/Daylight Box_Back.bmp",
+      "../../public/assets/Daylight Box_Pieces/Daylight Box_Right.bmp",
+      "../../public/assets/Daylight Box_Pieces/Daylight Box_Left.bmp",
+      "../../public/assets/Daylight Box_Pieces/Daylight Box_Top.bmp",
+      "../../public/assets/Daylight Box_Pieces/Daylight Box_Bottom.bmp",
+      "../../public/assets/Daylight Box_Pieces/Daylight Box_Front.bmp",
+      "../../public/assets/Daylight Box_Pieces/Daylight Box_Back.bmp",
     ];
     this.createSkyBox();
   }
@@ -27,12 +26,16 @@ class SkyBox {
         map: this.textureLoader.load(e),
         side: THREE.BackSide,
       });
-      this.skyBox.push(material);
+      this.skyBoxMaterials.push(material);
     });
   };
 
+  getBoxGeometry = () => {
+    return this.boxGeometry;
+  };
+
   getSkyBox = () => {
-    return this.skyBox;
+    return this.skyBoxMaterials;
   };
 }
 
