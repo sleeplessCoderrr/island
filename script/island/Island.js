@@ -13,11 +13,11 @@ class Island {
     this.textureLoader = new THREE.TextureLoader();
     this.fontLoader = new FontLoader();
 
-    this.baseBoxMaterial = this.materialLoader.createPhongMaterial(
-      new THREE.Color(0x7cfcda),
-      false,
-      100
-    );
+    this.baseBoxMaterial = this.materialLoader.createPhongMaterial({
+      color: new THREE.Color(0xfce0b1),
+      wireframe: false,
+      side: THREE.DoubleSide,
+    });
     this.coneMaterial = this.materialLoader.createStandartMaterial({
       color: new THREE.Color(0x95fce1),
       wireframe: false,
@@ -27,6 +27,7 @@ class Island {
 
   makeIsland = () => {
     this.createBaseCone();
+    this.createBaseBox();
     this.createLight();
   };
 
@@ -36,7 +37,7 @@ class Island {
   };
 
   createBaseBox = () => {
-    const box = this.geometry.createBox(40, 0.2, 40, this.baseBoxMaterial);
+    const box = this.geometry.createBox(30, 0.2, 30, this.baseBoxMaterial);
     this.geometry.setPosition(box, 0, -4, 0);
     this.objects.push(box);
   };
@@ -55,7 +56,7 @@ class Island {
   };
 
   createAmbientLight = () => {
-    const ambientLight = this.lighting.createAmbientLight(0xffffff, 0.4);
+    const ambientLight = this.lighting.createAmbientLight(0xffffff, 0.7);
     this.geometry.setPosition(ambientLight, 0, 0, 0);
     this.objects.push(ambientLight);
   };

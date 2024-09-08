@@ -30,7 +30,7 @@ class IsVDland {
   }
 
   setupCamera = () => {
-    this.builder.setCameraPosition(this.cameraOrbit, 0, 5, 5);
+    this.builder.setCameraPosition(this.cameraOrbit, 0, 35, 35);
     this.builder.setCameraLook(this.cameraOrbit, 0, 0, 0);
   };
 
@@ -41,9 +41,9 @@ class IsVDland {
 
     const skyboxGeometry = this.skybox.getBoxGeometry();
     const skybox = this.skybox.getSkyBox();
-    this.builder.addScene(this.scene, skyboxGeometry, skybox);
+    // this.builder.addScene(this.scene, skyboxGeometry, skybox);
 
-    this.load("./public/assets/Model/scene.gltf", 40, 40, 40);
+    // this.load("./public/assets/Model/scene.gltf", 40, 40, 40);
     this.objects.forEach((object) => {
       this.scene.add(object);
     });
@@ -61,7 +61,7 @@ class IsVDland {
   render = () => {
     requestAnimationFrame(this.render);
     this.controls.update();
-    this.renderer.setClearColor(0xffffff);
+    this.renderer.setClearColor(0xece8dd);
     this.renderer.render(this.scene, this.cameraOrbit);
   };
 
