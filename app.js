@@ -30,7 +30,7 @@ class IsVDland {
   }
 
   setupCamera = () => {
-    this.builder.setCameraPosition(this.cameraOrbit, 0, 35, 35);
+    this.builder.setCameraPosition(this.cameraOrbit, 0, 2, 60);
     this.builder.setCameraLook(this.cameraOrbit, 0, 0, 0);
   };
 
