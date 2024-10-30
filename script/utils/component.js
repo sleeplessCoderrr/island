@@ -67,6 +67,11 @@ class Geometry {
     return new THREE.Mesh(geometry, material);
   };
 
+  createPolyHedron = (verticesOfCube, indicesOfFaces, material) => {
+    const geometry = new THREE.PolyhedronGeometry(verticesOfCube, indicesOfFaces, 6, 2);
+    return new THREE.Mesh(geometry, material);
+  };
+  
   setPosition = (instance, x, y, z) => {
     instance.position.set(x, y, z);
   };

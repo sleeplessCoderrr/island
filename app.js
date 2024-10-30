@@ -15,7 +15,7 @@ class IsVDland {
     //All object in Canvas
     this.objects = [];
     this.scene = this.builder.createScene();
-
+ 
     //Camera things
     this.cameras = [];
     this.cameraOrbit = this.builder.createCamera(75, 1000);
@@ -26,7 +26,7 @@ class IsVDland {
       this.cameraOrbit,
       this.renderer.domElement
     );
-    this.controls.autoRotate = true;
+    this.controls.autoRotate = false;
   }
 
   setupCamera = () => {
@@ -81,14 +81,14 @@ class IsVDland {
   };
 }
 
-const main = new IsVDland();
+const app = new IsVDland();
 window.onload = () => {
-  main.setupCamera();
-  main.fill();
-  main.render();
+  app.setupCamera();
+  app.fill();
+  app.render();
 };
 
 window.onresize = () => {
-  main.updateAllCamera();
-  main.setRenderer(window.innerWidth, window.innerHeight);
+  app.updateAllCamera();
+  app.setRenderer(window.innerWidth, window.innerHeight);
 };

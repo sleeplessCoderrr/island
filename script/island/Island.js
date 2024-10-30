@@ -12,34 +12,81 @@ class Island {
     this.materialLoader = new Material();
     this.textureLoader = new THREE.TextureLoader();
     this.fontLoader = new FontLoader();
-  }
-
-  makeIsland = () => {
-    this.#createUpperBox();
-    this.#createLight();
-    this.#createLowerBox();
-  };
-
-  //3D Object
-  #createUpperBox = () => {
-    const baseBoxMaterial = this.materialLoader.createPhongMaterial({
-      color: new THREE.Color(0xfce0b1),
-      wireframe: false,
-      side: THREE.DoubleSide,
-    });
-    const box = this.geometry.createBox(30, 1, 30, baseBoxMaterial);
-    this.geometry.setPosition(box, 0, -4, 0);
-    this.objects.push(box);
-  };
-
-  #createLowerBox = () => {
-    const loweBoxMaterial = this.materialLoader.createPhongMaterial({
+    this.sandMaterial = this.materialLoader.createPhongMaterial({
       color: new THREE.Color(0x478997),
       wireframe: false,
       side: THREE.DoubleSide,
     });
-    const box = this.geometry.createBox(30, 15, 30, loweBoxMaterial);
-    this.geometry.setPosition(box, 0, -12, 0);
+    this.waterMaterial = this.materialLoader.createPhongMaterial({
+      color: new THREE.Color(0xfce0b1),
+      wireframe: false,
+      side: THREE.DoubleSide,
+    });
+    this.defaultPolyhedronMaterial = this.materialLoader.createPhongMaterial({
+      color: new THREE.Color(0xfce0b1),
+      wireframe: false,
+      side: THREE.DoubleSide,
+      flatShading: true
+    });
+  }  
+
+  makeIsland = () => {
+    this.#createLight();
+    // this.#createSandBox();
+    // this.#createLowerBox();
+    this.#createPolyHedron(2, this.defaultPolyhedronMaterial);
+  };
+
+  //Sand Controller
+
+  //Water controller
+
+  //For the sand
+  #createSandBox = () => {
+    const box = this.geometry.createBox(30, 15, 45, this.sandMaterial);
+    this.geometry.setPosition(box,-20, -12, 0);
+    this.objects.push(box);
+  };
+
+  //For the water
+  #createPolyHedron = (scaleFactor, material) => {
+    const verticesOfCube = this.#getVertices(scaleFactor);
+    const indicesOfFaces = this.#getIndices();
+
+    const polyhedron = this.geometry.createPolyHedron(verticesOfCube, indicesOfFaces, material);
+    this.geometry.setPosition(polyhedron, 0, 0, 0); 
+    this.objects.push(polyhedron);
+  };
+
+  #getVertices = (scaleFactor) => {
+    return new Float32Array([
+      0 * scaleFactor, 1 * scaleFactor, 0 * scaleFactor,
+      -1 * scaleFactor, -1 * scaleFactor, 0 * scaleFactor, 
+      1 * scaleFactor, -1 * scaleFactor, 0 * scaleFactor,
+
+      0 * scaleFactor, 1 * scaleFactor, -2 * scaleFactor, 
+      -1 * scaleFactor, -1 * scaleFactor, -2 * scaleFactor, 
+      1 * scaleFactor, -1 * scaleFactor, -2 * scaleFactor, 
+    ]);
+  };
+
+  #getIndices = () => {
+    return [
+      0, 1, 2,
+
+      3, 5, 4,
+
+      0, 2, 5, 
+      0, 5, 3, 
+      1, 4, 5, 
+      1, 5, 2, 
+    ];
+  };
+  
+
+  #createLowerBox = () => {
+    const box = this.geometry.createBox(30, 15, 45, this.waterMaterial);
+    this.geometry.setPosition(box, 20, -12, 0);
     this.objects.push(box);
   };
 
