@@ -17,11 +17,6 @@ export class Island {
       wireframe: false,
       side: THREE.DoubleSide,
     });
-    this.waterMaterial = this.materialLoader.createPhongMaterial({
-      color: new THREE.Color(0xfce0b1),
-      wireframe: false,
-      side: THREE.DoubleSide,
-    });
     this.defaultPolyhedronMaterial = this.materialLoader.createPhongMaterial({
       color: new THREE.Color(0xfce0b1),
       wireframe: false,
@@ -31,33 +26,17 @@ export class Island {
   }  
 
   makeIsland = () => {
-    
-  };
+    this.#createLight();
+  };  
 
-  
-
-  #createLowerBox = () => {
-    const box = this.geometry.createBox(30, 15, 45, this.waterMaterial);
-    this.geometry.setPosition(box, 20, -12, 0);
-    this.objects.push(box);
-  };
-
-  //Lighting
   #createLight = () => {
-    this.#createPointLight();
-    this.#createAmbientLight();
+    this.#createHouseLight();
   };
 
-  #createPointLight = () => {
+  #createHouseLight = () => {
     const pointLight = this.lighting.createPointLight(0xffffff, 0.3, 1000);
     this.geometry.setPosition(pointLight, 0, 3, 0);
     this.objects.push(pointLight);
-  };
-
-  #createAmbientLight = () => {
-    const ambientLight = this.lighting.createAmbientLight(0xffffff, 0.7);
-    this.geometry.setPosition(ambientLight, 0, 0, 0);
-    this.objects.push(ambientLight);
   };
 
   getObjects = () => {
