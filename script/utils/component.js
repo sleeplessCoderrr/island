@@ -1,8 +1,6 @@
 import * as THREE from "../../threejs/build/three.module.js ";
 
 export class Lighting {
-  constructor() {}
-
   createAmbientLight = (color, intensity) => {
     return new THREE.AmbientLight(color, intensity);
   };
@@ -21,8 +19,6 @@ export class Lighting {
 }
 
 export class Material {
-  constructor() {}
-
   createMeshBasicMaterial = (settings) => {
     return new THREE.MeshBasicMaterial(settings);
   };
@@ -41,8 +37,6 @@ export class Material {
 }
 
 export class Geometry {
-  constructor() {}
-
   createBox = (width, height, depth, material) => {
     const geometry = new THREE.BoxGeometry(width, height, depth);
     return new THREE.Mesh(geometry, material);

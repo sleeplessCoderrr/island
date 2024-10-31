@@ -1,6 +1,6 @@
 import { Builder } from "./script/utils/builder.js";
 import { Island } from "./script/model/Island.js";
-import { SkyBox } from "./script/skybox/SkyBox.js";
+import { SkyBox } from "./script/model/SkyBox.js";
 import { Geometry } from "./script/utils/component.js";
 import { GLTFLoader } from "./threejs/examples/jsm/loaders/GLTFLoader.js";
 import { SeaWaves } from "./script/model/SeaWave.js";
@@ -12,7 +12,7 @@ class IsVDland {
     this.island = new Island();
     this.wave = new SeaWaves();
     this.lighting = new Light();
-    this.skybox = new SkyBox(100, 100, 100);
+    this.skybox = new SkyBox(200, 200, 200);
 
     //Helper
     this.builder = new Builder();
@@ -43,16 +43,14 @@ class IsVDland {
   fill = () => {
     document.body.appendChild(this.renderer.domElement);
 
-    this.island.makeIsland();
+    this.island.initialize();
     this.wave.makeWaves();
     this.lighting.makeLighting();
 
     this.objects = this.objects.concat(this.island.getObjects());
     this.objects = this.objects.concat(this.wave.getObjects());
     this.objects = this.objects.concat(this.lighting.getObjects());
-
-    const skyboxGeometry = this.skybox.getBoxGeometry();
-    const skybox = this.skybox.getSkyBox();
+    this.objects = this.objects.concat(this.skybox.getSkyBox());
 
     this.objects.forEach((object) => {
       this.scene.add(object);
