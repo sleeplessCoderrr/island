@@ -4,7 +4,7 @@ import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
 import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
 
-class Island {
+export class Island {
   constructor() {
     this.lighting = new Lighting();
     this.geometry = new Geometry();
@@ -31,57 +31,9 @@ class Island {
   }  
 
   makeIsland = () => {
-    this.#createLight();
-    // this.#createSandBox();
-    // this.#createLowerBox();
-    this.#createPolyHedron(2, this.defaultPolyhedronMaterial);
+    
   };
 
-  //Sand Controller
-
-  //Water controller
-
-  //For the sand
-  #createSandBox = () => {
-    const box = this.geometry.createBox(30, 15, 45, this.sandMaterial);
-    this.geometry.setPosition(box,-20, -12, 0);
-    this.objects.push(box);
-  };
-
-  //For the water
-  #createPolyHedron = (scaleFactor, material) => {
-    const verticesOfCube = this.#getVertices(scaleFactor);
-    const indicesOfFaces = this.#getIndices();
-
-    const polyhedron = this.geometry.createPolyHedron(verticesOfCube, indicesOfFaces, material);
-    this.geometry.setPosition(polyhedron, 0, 0, 0); 
-    this.objects.push(polyhedron);
-  };
-
-  #getVertices = (scaleFactor) => {
-    return new Float32Array([
-      0 * scaleFactor, 1 * scaleFactor, 0 * scaleFactor,
-      -1 * scaleFactor, -1 * scaleFactor, 0 * scaleFactor, 
-      1 * scaleFactor, -1 * scaleFactor, 0 * scaleFactor,
-
-      0 * scaleFactor, 1 * scaleFactor, -2 * scaleFactor, 
-      -1 * scaleFactor, -1 * scaleFactor, -2 * scaleFactor, 
-      1 * scaleFactor, -1 * scaleFactor, -2 * scaleFactor, 
-    ]);
-  };
-
-  #getIndices = () => {
-    return [
-      0, 1, 2,
-
-      3, 5, 4,
-
-      0, 2, 5, 
-      0, 5, 3, 
-      1, 4, 5, 
-      1, 5, 2, 
-    ];
-  };
   
 
   #createLowerBox = () => {
@@ -113,4 +65,3 @@ class Island {
   };
 }
 
-export { Island };
