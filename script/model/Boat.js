@@ -1,4 +1,4 @@
-import * as THREE from "../../threejs/build/three.module.js ";
+import * as THREE from "../../threejs/build/three.module.js";
 import { Lighting, Material, Geometry } from "../utils/component.js";
 import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
 import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
@@ -19,7 +19,8 @@ export class Boat{
     }
 
     initialize = () => {
-        this.#makeBoats(5);
+        this.#makeBoats(6);
+        // this.#createBoat();
         this.#animateBoats();
     }
 
@@ -35,9 +36,9 @@ export class Boat{
 
         while (!isValidPosition) {
             position = {
-                x: Math.random() * 80 - 40,
-                y: 20,
-                z: Math.random() * 80 - 40
+                x: Math.random() * 80 - 80,
+                y: Math.random() * 80 - 80,
+                z: Math.random() * 80 - 80
             };
 
             isValidPosition = this.objects.every(obj => {
@@ -45,7 +46,7 @@ export class Boat{
                     Math.pow(obj.position.x - position.x, 2) +
                     Math.pow(obj.position.z - position.z, 2)
                 );
-                return distance > 5;
+                return distance > 20;
             });
         }
 
@@ -59,29 +60,38 @@ export class Boat{
     }
 
     #animateBoats = () => {
-        const speed = 0.005;
+        const speed = 0.015;
         const time = performance.now() * 0.001;
     
         this.objects.forEach((boat) => {
-            if (!boat.direction) {
-                boat.direction = { x: Math.random() * 2 - 1, z: Math.random() * 2 - 1 };
+            if (!boat.target) {
+                boat.target = this.#generateRandomTarget();
             }
-
-            boat.position.x += boat.direction.x * Math.sin(time + boat.id) * speed;
-            boat.position.z += boat.direction.z * Math.cos(time + boat.id) * speed;
-            boat.position.y = 0.6 + Math.sin((time + boat.id) * 2) * 0.2;
+            
+            const directionX = boat.target.x - boat.position.x;
+            const directionZ = boat.target.z - boat.position.z;
+            const distance = Math.sqrt(directionX * directionX + directionZ * directionZ);
     
-            if (boat.position.x > 20 || boat.position.x < -20) {
-                boat.direction.x *= -1;
-            }
-            if (boat.position.z > 20 || boat.position.z < -20) {
-                boat.direction.z *= -1;
+            if (distance > 1) {
+                boat.position.x += (directionX / distance) * speed;
+                boat.position.z += (directionZ / distance) * speed;
+                boat.position.y = 0.6 + Math.sin((time + boat.id) * 2) * 0.2;
+            } else {
+                boat.target = this.#generateRandomTarget();
             }
         });
     
         requestAnimationFrame(this.#animateBoats);
     };
-
+    
+    #generateRandomTarget = () => {
+        const range = 20;
+        return {
+            x: (Math.random() - 0.5) * range * 2,
+            z: (Math.random() - 0.5) * range * 2,
+        };
+    };
+    
     #createHouseLight = () => {
         const pointLight = this.lighting.createPointLight(0xffffff, 0.3, 1000);
         this.geometry.setPosition(pointLight, 0, 3, 0);

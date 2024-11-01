@@ -1,4 +1,7 @@
-import * as THREE from "../../threejs/build/three.module.js ";
+import * as THREE from "../../threejs/build/three.module.js";
+import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
+import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
 
 export class Lighting {
   createAmbientLight = (color, intensity) => {

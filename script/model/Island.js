@@ -28,7 +28,7 @@ export class Island {
   }
 
   initialize = () => {
-    this.#makeIsland(6);
+    this.#makeIsland(5);
   };
 
   #makeIsland = (n) => {
@@ -54,7 +54,7 @@ export class Island {
   };
 
   #generateIslandGeometry = () => {
-    const baseRadius = Math.random() * 10 + 3;
+    const baseRadius = Math.random() * 5 + 5;
     const height = Math.random() * 4 + 2;
     const radialSegments = Math.floor(Math.random() * 5 + 15);
     return this.geometry.createCone(baseRadius, height, radialSegments, this.sandMaterial);
