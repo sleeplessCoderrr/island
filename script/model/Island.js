@@ -28,7 +28,7 @@ export class Island {
   }
 
   initialize = () => {
-    this.#makeIsland(5);
+    this.#makeIsland(6);
   };
 
   #makeIsland = (n) => {

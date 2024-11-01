@@ -5,6 +5,7 @@ import { Geometry } from "./script/utils/component.js";
 import { GLTFLoader } from "./threejs/examples/jsm/loaders/GLTFLoader.js";
 import { SeaWaves } from "./script/model/SeaWave.js";
 import { Light } from "./script/model/Light.js";
+import { Boat } from "./script/model/Boat.js";
 
 class IsVDland {
   constructor() {
@@ -12,6 +13,7 @@ class IsVDland {
     this.island = new Island();
     this.wave = new SeaWaves();
     this.lighting = new Light();
+    this.boat = new Boat();
     this.skybox = new SkyBox(200, 200, 200);
 
     //Helper
@@ -46,11 +48,13 @@ class IsVDland {
     this.island.initialize();
     this.wave.makeWaves();
     this.lighting.makeLighting();
+    this.boat.initialize();
 
     this.objects = this.objects.concat(this.island.getObjects());
     this.objects = this.objects.concat(this.wave.getObjects());
     this.objects = this.objects.concat(this.lighting.getObjects());
     this.objects = this.objects.concat(this.skybox.getSkyBox());
+    this.objects = this.objects.concat(this.boat.getObjects());
 
     this.objects.forEach((object) => {
       this.scene.add(object);

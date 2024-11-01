@@ -78,5 +78,13 @@ export class Geometry {
   setRotation = (instance, rotation) => {
     instance.rotation.x = rotation;
   };
+
+  setCastShadow = (instance, isCast) => {
+    instance.castShadow = isCast;
+  }
+
+  setReceiveShadow = (instance, isCast) => {
+    instance.receiveShadow = isCast;
+  }
 }
 

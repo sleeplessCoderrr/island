@@ -39,7 +39,9 @@ export class SeaWaves{
             positionAttribute.setZ(i, newZ);
         }
         positionAttribute.needsUpdate = true;
-        requestAnimationFrame(() => this.#animateSeaWaves());
+        requestAnimationFrame(() => {
+            this.#animateSeaWaves()
+        });
     };
 
     getObjects = () => {
