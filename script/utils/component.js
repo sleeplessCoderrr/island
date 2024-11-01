@@ -37,9 +37,21 @@ export class Material {
   createPhongMaterial = (settings) => {
     return new THREE.MeshPhongMaterial(settings);
   };
+
+  createPointMaterial = (settings) => {
+    return new THREE.PointsMaterial(settings);
+  };
 }
 
 export class Geometry {
+  createGeometry = () => {
+    return new THREE.Geometry();
+  }
+
+  createPoint = (particle, material) => {
+    return new THREE.Points(particle, material);
+  }
+
   createBox = (width, height, depth, material) => {
     const geometry = new THREE.BoxGeometry(width, height, depth);
     return new THREE.Mesh(geometry, material);
@@ -64,10 +76,9 @@ export class Geometry {
     return new THREE.Mesh(geometry, material);
   };
 
-  createPolyHedron = (verticesOfCube, indicesOfFaces, material) => {
-    const geometry = new THREE.PolyhedronGeometry(verticesOfCube, indicesOfFaces, 6, 2);
-    return new THREE.Mesh(geometry, material);
-  };
+  createVector3 = (x, y, z) => {
+    return new THREE.Vector3(x, y, z)
+  }
 
   createPlane = (width, height, widthSegments, heightSegments, material) => {
     const geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
