@@ -44,10 +44,6 @@ export class Material {
 }
 
 export class Geometry {
-  createGeometry = () => {
-    return new THREE.Geometry();
-  }
-
   createPoint = (particle, material) => {
     return new THREE.Points(particle, material);
   }

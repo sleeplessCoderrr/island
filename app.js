@@ -1,11 +1,14 @@
-import { Builder } from "./script/utils/builder.js";
+import { Builder } from "./script/utils/Builder.js";
 import { Island } from "./script/model/Island.js";
 import { SkyBox } from "./script/model/SkyBox.js";
-import { Geometry } from "./script/utils/component.js";
+import { Geometry } from "./script/utils/Component.js";
 import { GLTFLoader } from "./threejs/examples/jsm/loaders/GLTFLoader.js";
 import { SeaWaves } from "./script/model/SeaWave.js";
 import { Light } from "./script/model/Light.js";
 import { Boat } from "./script/model/Boat.js";
+import { Rain } from "./script/model/Rain.js";
+import { Fog } from "./threejs/build/three.module.js";
+import { GLTFAssetLoader } from "./script/utils/GLTFAssetLoader.js";
 
 class IsVDland {
   constructor() {
@@ -14,8 +17,9 @@ class IsVDland {
     this.wave = new SeaWaves();
     this.lighting = new Light();
     this.boat = new Boat();
+    this.rain = new Rain();
     this.skybox = new SkyBox(200, 200, 200);
-
+    
     //Helper
     this.builder = new Builder();
     this.geometry = new Geometry();
@@ -23,6 +27,8 @@ class IsVDland {
     //All object in Canvas
     this.objects = [];
     this.scene = this.builder.createScene();
+    this.fog = new Fog(this.scene, 0xffffff, 1, 100);
+    this.gltfLoader = new GLTFAssetLoader(this.scene);
  
     //Camera things
     this.cameras = [];
@@ -49,12 +55,14 @@ class IsVDland {
     this.wave.makeWaves();
     this.lighting.makeLighting();
     this.boat.initialize();
+    this.rain.initialize();
 
     this.objects = this.objects.concat(this.island.getObjects());
     this.objects = this.objects.concat(this.wave.getObjects());
     this.objects = this.objects.concat(this.lighting.getObjects());
     this.objects = this.objects.concat(this.skybox.getSkyBox());
     this.objects = this.objects.concat(this.boat.getObjects());
+    this.objects = this.objects.concat(this.rain.getObjects());
 
     this.objects.forEach((object) => {
       this.scene.add(object);

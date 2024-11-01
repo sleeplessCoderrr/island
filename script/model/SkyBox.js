@@ -1,5 +1,5 @@
 import * as THREE from "../../threejs/build/three.module.js";
-import { Lighting, Material, Geometry } from "../utils/component.js";
+import { Lighting, Material, Geometry } from "../utils/Component.js";
 import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
 import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
@@ -33,7 +33,7 @@ export class SkyBox {
       });
 
       const material = this.material.createMeshBasicMaterial({
-        color: 0x333333, 
+        color: 0x1111111, 
         map: texture,
         side: THREE.BackSide,
       });

@@ -1,5 +1,5 @@
 import * as THREE from "../../threejs/build/three.module.js";
-import { Lighting, Material, Geometry } from "../utils/component.js";
+import { Lighting, Material, Geometry } from "../utils/Component.js";
 import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
 import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
@@ -17,7 +17,7 @@ export class Light{
     }
 
     #createMoonLight = () => {
-        const moonLight = this.lighting.createDirectionalLight(0xaaaaaa, 0.6);
+        const moonLight = this.lighting.createDirectionalLight(0xaaaaaa, 0.3);
         this.geometry.setPosition(moonLight, 10, 20, -15);
         moonLight.castShadow = true;
         this.objects.push(moonLight);
