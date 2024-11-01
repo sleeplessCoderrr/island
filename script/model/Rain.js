@@ -1,8 +1,5 @@
 import * as THREE from "../../threejs/build/three.module.js";
 import { Lighting, Material, Geometry } from "../utils/Component.js";
-import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
-import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
 
 export class Rain {
     constructor() {
@@ -41,6 +38,8 @@ export class Rain {
 
     #createRain = () => {
         const rain = new THREE.Points(this.rainParticles, this.rainMaterial);
+        this.geometry.setCastShadow(rain, true);
+        this.geometry.setReceiveShadow(rain, true);
         this.objects.push(rain);
     };
 

@@ -1,4 +1,3 @@
-import * as THREE from "../../threejs/build/three.module.js";
 import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
 
 export class GLTFAssetLoader {

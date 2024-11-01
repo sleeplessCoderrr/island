@@ -1,8 +1,5 @@
 import * as THREE from "../../threejs/build/three.module.js";
 import { Lighting, Material, Geometry } from "../utils/Component.js";
-import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
-import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
 
 export class Boat {
     constructor() {
@@ -57,32 +54,32 @@ export class Boat {
         const boatGroup = new THREE.Group();
         const hullMain = new THREE.BoxGeometry(1.5, 0.2, 3);
         const hullMesh = new THREE.Mesh(hullMain, this.boatMaterial);
-        hullMesh.position.set(position.x, position.y + 0.2, position.z);
+        this.geometry.setPosition(hullMesh, position.x, position.y + 0.2, position.z);
         boatGroup.add(hullMesh);
 
         const frontGeometry = new THREE.CylinderGeometry(0.2, 0.2, 1.5, 8);
         const frontMesh = new THREE.Mesh(frontGeometry, this.boatMaterial);
         frontMesh.rotation.z = Math.PI / 2;
-        frontMesh.position.set(position.x - 1, position.y + 0.2, position.z);
+        this.geometry.setPosition(frontMesh, position.x - 1, position.y + 0.2, position.z);
         boatGroup.add(frontMesh);
 
         const backMesh = frontMesh.clone();
-        backMesh.position.set(position.x + 1, position.y + 0.2, position.z);
+        this.geometry.setPosition(backMesh, position.x + 1, position.y + 0.2, position.z);
         boatGroup.add(backMesh);
 
         const deckGeometry = new THREE.BoxGeometry(1.2, 0.1, 2.5);
         const deckMesh = new THREE.Mesh(deckGeometry, this.boatMaterial);
-        deckMesh.position.set(position.x, position.y + 0.4, position.z);
+        this.geometry.setPosition(deckMesh, position.x, position.y + 0.4, position.z);
         boatGroup.add(deckMesh);
 
         const mastGeometry = new THREE.CylinderGeometry(0.05, 0.05, 2, 8);
         const mastMesh = new THREE.Mesh(mastGeometry, this.boatMaterial);
-        mastMesh.position.set(position.x, position.y + 1.5, position.z);
+        this.geometry.setPosition(mastMesh, position.x, position.y + 1.5, position.z);
         boatGroup.add(mastMesh);
 
         const sailGeometry = new THREE.PlaneGeometry(1.5, 2);
         const sailMesh = new THREE.Mesh(sailGeometry, this.sailMaterial);
-        sailMesh.position.set(position.x + 0.5, position.y + 2.5, position.z);
+        this.geometry.setPosition(sailMesh, position.x + 0.5, position.y + 2.5, position.z);
         sailMesh.rotation.y = Math.PI / 6; 
         boatGroup.add(sailMesh);
 
@@ -90,7 +87,7 @@ export class Boat {
         this.pointLight.position.set(position.x + 0.5, position.y + 2.5, position.z); 
         boatGroup.add(this.pointLight); 
 
-        boatGroup.position.set(position.x, position.y, position.z);
+        this.geometry.setPosition(boatGroup, position.x, position.y, position.z);
         boatGroup.userData.target = this.#generateRandomTarget();
 
         this.objects.push(boatGroup);

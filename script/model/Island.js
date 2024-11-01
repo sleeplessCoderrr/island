@@ -1,6 +1,5 @@
 import * as THREE from "../../threejs/build/three.module.js";
 import { Lighting, Material, Geometry } from "../utils/Component.js";
-import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
 import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
 
@@ -57,7 +56,10 @@ export class Island {
     const baseRadius = Math.random() * 5 + 5;
     const height = Math.random() * 2 + 2;
     const radialSegments = Math.floor(Math.random() * 5 + 15);
-    return this.geometry.createCone(baseRadius, height, radialSegments, this.sandMaterial);
+    const island  = this.geometry.createCone(baseRadius, height, radialSegments, this.sandMaterial);
+    this.geometry.setReceiveShadow(island, true);
+    
+    return island;
   };
 
   #findValidPosition = (islandGeometry) => {
@@ -87,7 +89,7 @@ export class Island {
   #addHouse = (island) => {
     const house = this.geometry.createBox(2, 4, 2, this.houseMaterial); 
     house.position.set(island.position.x, island.position.y + 1.5, island.position.z); 
-    house.castShadow = true;
+    this.geometry.setCastShadow(house, true);
     this.objects.push(house);
   };
 
@@ -96,8 +98,8 @@ export class Island {
     const foliage = this.geometry.createSphere(1, this.treeMaterial); 
     trunk.position.set(island.position.x + 2, island.position.y + 2, island.position.z + 2);
     foliage.position.set(island.position.x + 2, island.position.y + 2, island.position.z + 2);
-    trunk.castShadow = true;
-    foliage.castShadow = true;
+    this.geometry.setCastShadow(trunk, true);
+    this.geometry.setCastShadow(foliage, true);
     this.objects.push(trunk);
     this.objects.push(foliage);
   };
@@ -105,7 +107,7 @@ export class Island {
   #addLight = (island) => {
     const pointLight = this.lighting.createPointLight(0xfcec03, 0.7, 5);
     pointLight.position.set(island.position.x, island.position.y + 3, island.position.z);
-    pointLight.castShadow = true;
+    this.geometry.setCastShadow(pointLight, true);
     this.objects.push(pointLight);
   };
 

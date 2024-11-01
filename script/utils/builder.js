@@ -1,8 +1,5 @@
 import * as THREE from "../../threejs/build/three.module.js";
 import { OrbitControls } from "../../threejs/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from "../../threejs/examples/jsm/loaders/GLTFLoader.js";
-import { FontLoader } from "../../threejs/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "../../threejs/examples/jsm/geometries/TextGeometry.js";
 
 export class Builder {
   createCamera = (fov, far) => {
