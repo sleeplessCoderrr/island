@@ -55,7 +55,7 @@ export class Island {
 
   #generateIslandGeometry = () => {
     const baseRadius = Math.random() * 5 + 5;
-    const height = Math.random() * 4 + 2;
+    const height = Math.random() * 2 + 2;
     const radialSegments = Math.floor(Math.random() * 5 + 15);
     return this.geometry.createCone(baseRadius, height, radialSegments, this.sandMaterial);
   };
@@ -75,6 +75,10 @@ export class Island {
         const dz = obj.position.z - z;
         return Math.sqrt(dx * dx + dz * dz) < minDistance + baseRadius;
       });
+
+      if (Math.abs(x) < minDistance && Math.abs(z) < minDistance) {
+        isTooClose = true;
+      }
     } while (isTooClose);
 
     return { x, z };
@@ -88,10 +92,10 @@ export class Island {
   };
 
   #addTree = (island) => {
-    const trunk = this.geometry.createCylinder(0.2, 0.4, 2, this.treeMaterial); 
+    const trunk = this.geometry.createCylinder(0.2, 0.8, 2, this.treeMaterial); 
     const foliage = this.geometry.createSphere(1, this.treeMaterial); 
     trunk.position.set(island.position.x + 2, island.position.y + 2, island.position.z + 2);
-    foliage.position.set(island.position.x + 2, island.position.y + 2.5, island.position.z + 2);
+    foliage.position.set(island.position.x + 2, island.position.y + 2, island.position.z + 2);
     trunk.castShadow = true;
     foliage.castShadow = true;
     this.objects.push(trunk);
@@ -99,7 +103,7 @@ export class Island {
   };
 
   #addLight = (island) => {
-    const pointLight = this.lighting.createPointLight(0xffffff, 0.7, 10);
+    const pointLight = this.lighting.createPointLight(0xfcec03, 0.7, 5);
     pointLight.position.set(island.position.x, island.position.y + 3, island.position.z);
     pointLight.castShadow = true;
     this.objects.push(pointLight);

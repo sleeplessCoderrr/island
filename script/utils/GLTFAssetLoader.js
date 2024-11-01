@@ -14,29 +14,13 @@ export class GLTFAssetLoader {
         this.loader.load(
             path,
             (gltf) => {
-                const model = gltf.scene;
-
-                // Set position
+                const model = gltf.scene;               
                 model.position.set(position.x, position.y, position.z);
-
-                // Set scale
                 model.scale.set(scale.x, scale.y, scale.z);
-
-                // Set rotation
                 model.rotation.set(rotation.x, rotation.y, rotation.z);
-
-                // Add the model to the scene and store it
                 this.scene.add(model);
                 this.objects.push(model);
-
-                // Call the onLoad callback if provided
-                if (onLoad) onLoad(model);
             },
-            undefined,
-            (error) => {
-                console.error(`Error loading GLTF asset from ${path}`, error);
-                if (onError) onError(error);
-            }
         );
     }
 

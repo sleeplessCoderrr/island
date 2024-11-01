@@ -56,6 +56,11 @@ class IsVDland {
     this.lighting.makeLighting();
     this.boat.initialize();
     this.rain.initialize();
+    this.gltfLoader.loadAsset(
+      '../../public/assets/lighthouse/scene.gltf', {
+        position: { x: 0, y: 0, z: 0 },
+        scale: { x: 0.2, y: 0.2, z: 0.2 },
+    });
 
     this.objects = this.objects.concat(this.island.getObjects());
     this.objects = this.objects.concat(this.wave.getObjects());
@@ -63,6 +68,7 @@ class IsVDland {
     this.objects = this.objects.concat(this.skybox.getSkyBox());
     this.objects = this.objects.concat(this.boat.getObjects());
     this.objects = this.objects.concat(this.rain.getObjects());
+    this.objects = this.objects.concat(this.gltfLoader.getObjects());
 
     this.objects.forEach((object) => {
       this.scene.add(object);

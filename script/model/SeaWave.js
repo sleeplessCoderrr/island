@@ -10,10 +10,12 @@ export class SeaWaves{
         this.objects = [];
         this.materialLoader = new Material();
         this.textureLoader = new THREE.TextureLoader();
-        this.waterMaterial = this.materialLoader.createStandartMaterial({ 
+        this.waterMaterial = this.materialLoader.createPhongMaterial({ 
             color: 0x1e90ff, 
             transparent: true, 
-            opacity: 0.3 
+            opacity: 0.1,
+            shininess: 100,
+            reflectivity: 1 
         });
     }
 
@@ -29,13 +31,14 @@ export class SeaWaves{
         seaGeometry.receiveShadow = true;
         this.objects.push(seaGeometry);
         this.seaGeometry = seaGeometry;
+        this.geometry.setReceiveShadow(seaGeometry, true);
     };
 
     #animateSeaWaves = () => {
         const positionAttribute = this.seaGeometry.geometry.attributes.position;
         const vertexCount = positionAttribute.count;
         for (let i = 0; i < vertexCount; i++) {
-            const newZ = Math.sin(i + performance.now() * 0.002) * 0.5;
+            const newZ = Math.sin(i + performance.now() * 0.002) * 0.9;
             positionAttribute.setZ(i, newZ);
         }
         positionAttribute.needsUpdate = true;
